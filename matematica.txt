@@ -1,0 +1,10 @@
+Cat face (1+i)/(1-i)?
+A.1 B.i C.3-2i D.0.5 1
+Pentru a calcula volumul unui munte se poate folosi:
+A.integrala_tripla B.Navier-Stokes C.diagonalizarea D.vointa 0
+Singurul matematician care a rezolvat o problema "Millenium Prize" este:
+A.Leibniz B.Grigori_Perelman C.Stephen_Hawking D.Peano 1
+Ce familie europeana a dat cei mai multi matematicieni?
+A.Cauchy B.Cantor C.Bernoulli D.Gauss 2
+Functia Riemann-zetta evaluata in 2 da rezultatul:
+A.e^(2!) B.phi/ln(2) C.sqrt(i) D.pi^2/6 3

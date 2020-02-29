@@ -1,0 +1,60 @@
+                                TRIVIA by Costin Ghiban
+    
+    Aplicatia TRIVIA permite utilizatorului testarea cunostintelor de cultura generala in 
+diferite domenii: matematica, istorie si literatura (fisierele cu intrebari din aceste 
+categorii se gasesc in arhiva aplicatiei, putandu-se completa cu intrebari si categorii noi - 
+Stay Tuned for Updates).
+
+    Cerinta 1:
+    Jocul a fost realizat cu ajutorul bibliotecii C ncurses.h si contine doua fisiere sursa
+si un header cu definitiile functiilor create, precum si un Makefile ce ajuta la compilarea
+si rularea aplicatiei, precum si la realizarea unui Top 10 (sau n=...) cele mai bune punctaje.
+Fisierul main.c este cel in care se apeleaza functia "play", ce initializeaza meniul, construit
+cu ajutorul unei ferestre curses. Functia play primeste ca parametri ferestrele menu si game,
+un vector de fisiere (FILE **intrebari) alocat dinamic, numarul de argumente in linia de comanda 
+ce echivaleaza cu numarul de fisiere cu intrebari - 1, vectorul constant cu optiunile disponibile
+in meniu si numele jucatorului, care, by default, este Guest.
+    Navigarea in meniu se face cu ajutorul sagetilor, iar selectarea prin apasarea tastei Enter.
+Optiunea Quit iese din joc. Optiunea Change Player Name permite utilizatorului (prin functia
+change_player_name) alegerea unui nume de jucator intre 3 si 14 caractere, dupa care se va 
+recunoaste in Ranking List (rankings.txt). Optiunea New Game duce la inceperea unei noi 
+sesiuni de joc, iar Resume Game la reluarea sesiunii oprite (prin apasarea in joc a tastei q).
+
+    Cerinta 2:
+    Layout-ul jocului consta in doua ferestre: una mai mica pentru meniu, si alta mai mare
+pentru jocul in sine. In cadrul meniului butoanele sunt asezate central, iar alegerea optiunii
+Change Player Name aseaza cursorul, facandu-l vizibil, in coltul din stanga-jos, permitand
+jucatorului sa tasteze (avand feedback vizual prin declansarea echo()) un nume de joc. Apasarea
+tastei Enter schimba campul Player:... conform numelui ales.
+    In cadrul ferestrei de joc scorul si timpul curente sunt afisate in coltul dreapta-sus,
+intrebarea si cele 4 variante central, iar "power-ups"-urile sunt vizibile prin apasarea tastei h
+in zona central-inferioara.
+
+    Cerinta 3:
+    Implementarea jocului are la baza functia start_game, disponibila in doua moduri:
+"new" si "resume" (parametrul "const char *mode"). Aceasta primeste ca parametri tot 
+ce are nevoie pentru a realiza afisarea intrebarilor si raspunsurilor, prin citirea ciclica 
+a fisierelor de intrebari (vezi variabila "nrf"), alegerea variantei de catre utilizator,
+updatarea scorului si timpului, afisarea power-ups-urilor etc. Functia foloseste variabile
+de tip static pentru retinerea acelor valori necesare pentru funtionarea resume-ului. Acolo 
+unde acestea nu puteau fi folosite singure (vezi char *quest si char **answ, alocate dinamic),
+s-a recurs la copierea lor in momentul intoarcerii la meniul principal in variabile alocate "static".
+    
+    Cerinta 4:
+    Variantele ajutatoare sunt in numar de 3:
+    - skip one: citeste urmatoarea intrebare din fisierul corespunzator, fara a modifica scorul;
+                devine inactiva dupa prima folosire, inclusiv dupa selectarea "Resume Game"
+    - fifty-fifty: in main.c se genereaza un seed pentru randomizer pe baza timpului curent;
+                   in start_game sunt generate 2 numere aleatoare, corespunzand variantelor 
+                   de raspuns gresite (daca rand() da chiar varianta corecte se genereaza alt numar)
+    - ask a friend: se apeleaza functia system() cu o comanda sub Linux care deschide o fereastra
+                    de firefox pe google.com (Best friend in times of need)
+
+    Cerinta 5:
+    Cand s-au epuizat intrebarile din toate fisierele puse la dispozitie (lucru verificat intr-un ciclu
+prin apelul functiei de biblioteca feof()) se curata fereastra de joc si se afiseaza un mesaj in care se
+specifica scorul obtinut, numarul de intrebari la care s-a raspuns corect si numarul de intrebari la care 
+s-a raspuns gresit. Mai apoi scorul si numele jucatorului sunt scrise in fisierul rankings.txt prin apelul 
+functiei rank_player(). Ranking List-ul poate fi consultat in terminal prin rularea comenzii make top
+(default top n=10) sau make top n=...
+    Dupa apasarea oricarei taste jucatorul este readus la meniul principal.
